@@ -1,38 +1,58 @@
-# Perform-exploratory-data-analysis-on-retail-data-with-Python
+# Exploratory Data Analysis on Retail Data (Python)
 
-Overview
-In this project, you will step into the shoes of an entry-level data analyst at an online retail company, helping interpret real-world data to help make a key business decision.
+Coursera-style portfolio project: exploratory data analysis on the **UCI Online Retail** dataset (UK-based online gift store transactions, 2010–2011). The notebook cleans the data, explores sales and customer behavior, and summarizes business-oriented findings.
 
-Case Study
-In this project, you will be working with transactional data from an online retail store. The dataset contains information about customer purchases, including product details, quantities, prices, and timestamps. Your task is to explore and analyze this dataset to gain insights into the store's sales trends, customer behavior, and popular products.
+## What’s in the repo
 
-By conducting exploratory data analysis, you will identify patterns, outliers, and correlations in the data, allowing you to make data-driven decisions and recommendations to optimize the store's operations and improve customer satisfaction. Through visualizations and statistical analysis, you will uncover key trends, such as the busiest sales months, best-selling products, and the store's most valuable customers. Ultimately, this project aims to provide actionable insights that can drive strategic business decisions and enhance the store's overall performance in the competitive online retail market.
+| File | Description |
+|------|-------------|
+| `online_retail.ipynb` | Full EDA notebook with charts and narrative |
+| `online_retail.py` | Colab export of the notebook |
+| `Online Retail.xlsx` | Dataset used by the analysis |
 
-Project Objectives
-Describe data to answer key questions to uncover insights
-Gain valuable insights that will help improve online retail performance
-Provide analytic insights and data-driven recommendations
-Dataset
-The dataset you will be working with is the "Online Retail" dataset. It contains transactional data of an online retail store from 2010 to 2011. The dataset is available as a .xlsx file named Online Retail.xlsx. This data file is already included in the Coursera Jupyter Notebook environment, however if you are working off-platform it can also be downloaded here.
+## Dataset columns
 
-The dataset contains the following columns:
+| Column | Meaning |
+|--------|---------|
+| `InvoiceNo` | Invoice / transaction id |
+| `StockCode` | Product code |
+| `Description` | Product name |
+| `Quantity` | Units on the line |
+| `InvoiceDate` | Timestamp |
+| `UnitPrice` | Price per unit |
+| `CustomerID` | Customer id |
+| `Country` | Customer country |
 
-InvoiceNo: Invoice number of the transaction
-StockCode: Unique code of the product
-Description: Description of the product
-Quantity: Quantity of the product in the transaction
-InvoiceDate: Date and time of the transaction
-UnitPrice: Unit price of the product
-CustomerID: Unique identifier of the customer
-Country: Country where the transaction occurred
-Tasks
-You may explore this dataset in any way you would like - however if you'd like some help getting started, here are a few ideas:
+## Analysis steps
 
-Load the dataset into a Pandas DataFrame and display the first few rows to get an overview of the data.
-Perform data cleaning by handling missing values, if any, and removing any redundant or unnecessary columns.
-Explore the basic statistics of the dataset, including measures of central tendency and dispersion.
-Perform data visualization to gain insights into the dataset. Generate appropriate plots, such as histograms, scatter plots, or bar plots, to visualize different aspects of the data.
-Analyze the sales trends over time. Identify the busiest months and days of the week in terms of sales.
-Explore the top-selling products and countries based on the quantity sold.
-Identify any outliers or anomalies in the dataset and discuss their potential impact on the analysis.
-Draw conclusions and summarize your findings from the exploratory data analysis.
+1. **Load & inspect** — shape, head/tail, dtypes, missing values  
+2. **Clean** — drop duplicates, keep positive unit prices, handle missing customer ids, tag completed vs returned-style rows  
+3. **Feature helpers** — revenue (`Quantity × UnitPrice`), month, weekday, hour  
+4. **Visualize** — country activity, top customers, top products, monthly / weekday / hourly order and revenue patterns  
+5. **Outliers** — z-score style checks on quantity / price / revenue  
+6. **Conclusions** — practical notes on valuing top customers, stocking popular products, and timing campaigns  
+
+## Tech stack
+
+Python, Pandas, NumPy, Matplotlib, Seaborn, SciPy, tabulate, Jupyter / openpyxl
+
+## How to run
+
+```bash
+git clone https://github.com/mahmouduskudar/perform-exploratory-data-analysis-on-retail-data-with-python.git
+cd perform-exploratory-data-analysis-on-retail-data-with-python
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install pandas numpy matplotlib seaborn scipy tabulate openpyxl jupyter
+jupyter notebook online_retail.ipynb
+```
+
+If a cell still points at `/content/Online Retail.xlsx`, change it to the local file:
+
+```python
+data = pd.read_excel("Online Retail.xlsx")
+```
+
+## Source
+
+Dataset: [UCI Online Retail](https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx)
